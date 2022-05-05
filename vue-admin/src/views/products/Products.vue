@@ -54,7 +54,8 @@
  </div>
 </template>
 
-<script lang="ts">
+<script >
+
 import axios from "axios"
 import Vue from "vue"
 export default Vue.extend({
@@ -64,7 +65,10 @@ name: "Products",
         products: [],
         page: 1,
         perPage: 15,
-        lastPage: 0
+        lastPage: 0,
+        ids :  {
+                '1': 10
+                }
       }
   },
   async mounted() {
@@ -75,12 +79,12 @@ name: "Products",
 
   },
   methods: {
-      async deleteProducts(id: number) {
+      async deleteProducts(id= number) {
           if (confirm('Are you sure?'))
           {
-            await axios.delete(`products/${id}`);
-
-            this.products = this.products.filter(p => p.id !== id);
+            await axios.delete(`products/${id}`);// this.products =
+            
+            this.products = this.products.filter( p => p.id !== id);
           }
         
       }
