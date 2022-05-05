@@ -32,31 +32,35 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "ProductForm",
     data() {
         return {
-            title = '',
-            oem_part_number = '',
-            brand = '',
-            manufacturer = '',
-            description = '',
-            image = '',
-            price = '',
+            title : '',
+            oem_part_number : '',
+            brand : '',
+            manufacturer : '',
+            description : '',
+            image : '',
+            price : '',
         }
     },
-    methods {
+    methods: {
         async submit() {
-            wait axios.post('products'),
+            await axios.post('products',
             {
                 title: this.title,
-                title: this.title,
-                title: this.title,
-                title: this.title,
-                title: this.title,
-                title: this.title,
-                title: this.title,
-            }
+                oem_part_number: this.oem_part_number,
+                brand: this.brand,
+                manufacturer: this.manufacturer,
+                description: this.description,
+                image: this.image,
+                price: this.price,
+            })
+
+            await this.$router.push('/products');
 
         }
     }
