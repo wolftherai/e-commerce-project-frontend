@@ -8,3 +8,5 @@ Krepselis/*
 PowerDesigner/*
 *.docx
 postman-collection.json
+app
+/app/
