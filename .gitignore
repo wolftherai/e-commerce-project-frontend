@@ -1,7 +1,8 @@
 env/*
 .idea/*
 *.zip
+*.7z
 .dbdata/*
 Krepselis/*
 PowerDesigner/*
-*.docs
+*.docx
