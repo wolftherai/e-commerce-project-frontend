@@ -3,6 +3,7 @@ env/*
 *.zip
 *.7z
 .dbdata/*
+.dbdata1/*
 Krepselis/*
 PowerDesigner/*
 *.docx
