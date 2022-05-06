@@ -34,9 +34,10 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>
-                    <v-btn :href="`/products/${product.id}`" color="primary" elevation="2">View</v-btn>
-
+                    <v-btn-toggle>
+                    <v-btn :href="`/products/${product.id}/edit`" @click="editProducts(product.id)" color="primary">Edit</v-btn>
                     <v-btn color="error" @click="deleteProducts(product.id)">Delete</v-btn>
+                    </v-btn-toggle>
                 </td>
             </tr>
         </tbody>
@@ -54,7 +55,7 @@
  </div>
 </template>
 
-<script >
+<script>
 
 import Vue from "vue"
 export default Vue.extend({

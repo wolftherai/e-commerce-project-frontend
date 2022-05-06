@@ -3,7 +3,7 @@
         <ul class="nav flex-column">
             <li class="nav-item">
             <router-link to="/users" class="nav-link"  active-class="active">
-                Users
+                Managers
             </router-link>
             <router-link to="/products" class="nav-link"  active-class="active">
                 Products

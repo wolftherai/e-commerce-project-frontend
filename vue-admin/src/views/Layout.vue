@@ -34,7 +34,6 @@ export default {
         try{
             const {data} = await this.$http.get('user');
             this.user = data;
-            alert(this.user);
 
            // console.log(response.data);
         }
