@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
     name: "ProductForm",
@@ -49,7 +48,7 @@ export default {
     },
     methods: {
         async submit() {
-            await axios.post('products',
+            await this.$http.post('products',
             {
                 title: this.title,
                 oem_part_number: this.oem_part_number,

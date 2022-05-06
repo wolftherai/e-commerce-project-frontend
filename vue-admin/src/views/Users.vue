@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import axios from "axios"
+
 export default{
 name: "Users",
   data() {
@@ -50,7 +50,7 @@ name: "Users",
       }
   },
   async mounted() {
-      const {data} = await axios.get('managers');
+      const {data} = await this.$http.get('managers');
 
       this.users = data;
       this.lastPage = Math.ceil(data.length / this.perPage)

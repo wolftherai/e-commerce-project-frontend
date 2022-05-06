@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from "axios"
 export default{
 name: "Links",
   data() {
@@ -35,7 +34,7 @@ name: "Links",
       }
   },
   async mounted() {
-      const {data} = await axios.get(`users/${this.$route.params.id}/links`);
+      const {data} = await this.$http.get(`users/${this.$route.params.id}/links`);
 
       this.links = data;
       

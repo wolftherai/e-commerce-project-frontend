@@ -20,8 +20,7 @@
 <script>
 import Nav from "@/components/Nav.vue"
 import Menu from "@/components/Menu.vue"
-import axios from "axios";
-import {User} from "@/models/user"
+import {User} from "@/models/user.ts"
 
 export default {
     name: "Layout",
@@ -33,8 +32,9 @@ export default {
     },
     async mounted() {
         try{
-            const {data} = await axios.get('user');
+            const {data} = await this.$http.get('user');
             this.user = data;
+            alert(this.user);
 
            // console.log(response.data);
         }

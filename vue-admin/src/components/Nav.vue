@@ -11,14 +11,14 @@
     </header>
 </template>
 <script>
-import axios from "axios"
+
 export default {
     name: "Nav",
     props: ['user'],
     methods: {
         async logout() {
             
-            await axios.post('logout');
+            await this.$http.post('logout');
             await this.$router.push('/login');
         }
     }

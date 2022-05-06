@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import axios from "axios"
+
 export default {
     name: "Login",
     data(){
@@ -33,7 +33,7 @@ export default {
     },
     methods: {
       async submit() {
-        await axios.post('login', {
+        await this.$http.post('login', {
           email: this.email,
           password: this.password,
         }

@@ -56,7 +56,6 @@
 
 <script >
 
-import axios from "axios"
 import Vue from "vue"
 export default Vue.extend({
 name: "Products",
@@ -65,14 +64,12 @@ name: "Products",
         products: [],
         page: 1,
         perPage: 15,
-        lastPage: 0,
-        ids :  {
-                '1': 10
-                }
+        lastPage: 0
+
       }
   },
   async mounted() {
-      const {data} = await axios.get('products');
+      const {data} = await this.$http.get('products');
 
       this.products = data;
       this.lastPage = Math.ceil(data.length / this.perPage)
@@ -82,7 +79,7 @@ name: "Products",
       async deleteProducts(id= number) {
           if (confirm('Are you sure?'))
           {
-            await axios.delete(`products/${id}`);// this.products =
+            await this.$http.delete(`products/${id}`);// this.products =
             
             this.products = this.products.filter( p => p.id !== id);
           }
