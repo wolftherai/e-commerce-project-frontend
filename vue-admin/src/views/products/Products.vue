@@ -32,7 +32,7 @@
                 <td>{{ product.manufacturer }}</td>
                 <td>  </td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price }} €</td>
                 <td>
                     <v-btn-toggle>
                     <v-btn :href="`/products/${product.id}/edit`" @click="editProducts(product.id)" color="primary">Edit</v-btn>

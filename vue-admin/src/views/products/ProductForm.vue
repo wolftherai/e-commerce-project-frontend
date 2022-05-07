@@ -23,8 +23,8 @@
             <v-text-field label="Image" v-model="image"/>
         </div>
 
-        <div class="mb-3">
-            <v-text-field label="Price" type="number" min="0" v-model="price"/>
+        <div class="mb-3" style="width:200px">
+            <v-text-field label="Price"  type="number" min="0" v-model="price"/>
         </div>
         <v-btn type="submit" color="primary" >Save</v-btn>
         <v-btn  color="red"  style="margin-left:25px" @click="cancel" >Cancel</v-btn>
