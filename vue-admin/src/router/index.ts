@@ -5,8 +5,10 @@ import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
 import Users from '@/views/Users.vue'
 import Links from '@/views/Links.vue'
+import Orders from '@/views/Orders.vue'
 import Products from '@/views/products/Products.vue'
 import ProductForm from '@/views/products/ProductForm.vue'
+import Profile from '@/views/Profile.vue'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -22,6 +24,8 @@ const routes: Array<RouteConfig> = [
         {path: '/products', component: Products},
         {path: '/products/create', component: ProductForm},
         {path: '/products/:id/edit', component: ProductForm},
+        {path: '/orders', component: Orders},
+        {path: '/profile', component: Profile},
     ]
   }
   

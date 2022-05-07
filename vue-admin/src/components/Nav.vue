@@ -15,13 +15,18 @@
 <script>
 export default {
     name: "Nav",
-    props: ['user'],
+    // props: ['user'], replaced with vuex
     methods: {
         async logout() {
             
             await this.$http.post('logout');
             await this.$router.push('/login');
         }
+    },
+    computed: {
+      user() {
+          return this.$store.state.user; // get user from vuex
+      }  
     }
 }
 

@@ -1,6 +1,6 @@
 <template>   
     <v-app>  
-        <Nav :user="user"/>
+        <Nav/>
         <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -20,20 +20,17 @@
 <script>
 import Nav from "@/components/Nav.vue"
 import Menu from "@/components/Menu.vue"
-import {User} from "@/models/user.ts"
 
 export default {
     name: "Layout",
     components: {Menu, Nav},
-    data(){
-        return {
-            user: new User()
-        }
-    },
     async mounted() {
         try{
             const {data} = await this.$http.get('user');
-            this.user = data;
+            //this.user = data;
+
+            await this.$store.dispatch('setUser',data) //send user to vuex
+
 
            // console.log(response.data);
         }
