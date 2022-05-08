@@ -6,14 +6,16 @@
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li>
-        <router-link to="/" class="nav-link px-2 link-secondary">Frontend</router-link>
+        <router-link to="/" class="nav-link px-2 link-secondary" exact-active-class="link-dark">Frontend</router-link>
         </li>
         <li>
-        <a href="#" class="nav-link px-2 link-dark">Backend</a>
+        <router-link to="/backend" class="nav-link px-2 link-secondary" active-class="link-dark" >Backend</router-link>
         </li>
       </ul>
 
       <div class="col-md-3 text-end" v-if="user != null">
+      <router-link to="/stats" class="btn me-2" >Stats</router-link>
+      <router-link to="/rankings" class="btn me-2" >Rankings</router-link>
         <a href="#" type="button" class="btn btn-outline-primary me-2" @click="logout">Logout</a>
         <router-link to="/profile" class="btn btn-primary">{{user.first_name}} {{user.last_name}}</router-link>
       </div>
@@ -43,8 +45,11 @@ export default {
       const logout = async () => {
         await axios.post('logout');
         await store.dispatch('setUser', null);
+      //  await this.router.push('/');
+        
 
       }
+      
 // all the variables and functions should be returned
       return {
         user,

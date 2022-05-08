@@ -35,7 +35,7 @@ export default {
         //don't show header when in detail forms
         const route = useRoute();
         const hideHeader = computed(
-            () =>  route.path === '/profile' //|| route.path === '/backend'
+            () =>  route.path === '/profile' || route.path === '/stats' || route.path === '/rankings'
             
         );
         
