@@ -8,7 +8,7 @@
 import Products from "@/views/Products"
 import axios from 'axios'
 export default {
-name: "ProductsFrontend",
+name: "ProductsBackend",
 components: {Products}
 }
 
