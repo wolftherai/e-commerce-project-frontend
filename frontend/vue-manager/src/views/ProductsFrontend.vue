@@ -1,15 +1,33 @@
 <template>
 <div>
-<a>Products</a>
-<Products/>
+<Products :products="products" :filters="filters"/>
 </div>
 </template>
-<script>
-import Products from "@/views/Products"
+<script lang="ts">
+import Products from "../views/Products.vue"//"@/views/Products"
+import {Product} from "@/models/product"
 import axios from 'axios'
+import {ref,reactive, onMounted} from "vue"
 export default {
 name: "ProductsFrontend",
-components: {Products}
+components: {Products},
+setup() {
+    const products = ref<Product[]>([]);
+    const filters = reactive({
+        s: ''
+    });
+
+    onMounted( async () => {
+        const {data} = await axios.get('products/frontend');
+
+        products.value = data;
+    });
+
+    return {
+        products,
+        filters
+    }
+}
 }
 
 </script>
