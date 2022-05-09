@@ -1,7 +1,18 @@
 <template>
+<div  class="py-5 text-center container">
+<div v-if="link" class="alert alert-info"  role="alert" > {{link}}</div>
+<div v-if="error" class="alert alert-danger"  role="alert" > {{error}}</div>
+
+</div>
+
+<div  class="py-5 text-center container"  >
+<button v-if="selected.length>0" class="btn btn-info" @click="generateLink" > Generate checkout link</button>
+<button v-if="addedToCart.length>0" class="btn btn-info" @click="generateCart"   > Go to checkout </button>
+</div>
 
 <div class="col-md-12 mb-4 input-group">
     <input class="form-control" placeholder="Search" @keyup="search($event.target.value)"/>
+
 
 
     <div class="input-group-append">
@@ -81,9 +92,12 @@ emits: ['set-filters'],
 
 setup(props: any, context: SetupContext) {
 
+    const link =  ref('')
     const selected = ref<number[]>([]); // selected products
 
     const addedToCart = ref<number[]>([]); // added to cart
+
+    const error = ref('')
 
    /* const manufacturer => {
         pr : this.products
@@ -122,8 +136,6 @@ setup(props: any, context: SetupContext) {
 
         selected.value = [...selected.value, id]
 
-        
-
     }
     
     const addToCart = (id:number) => {
@@ -137,6 +149,43 @@ setup(props: any, context: SetupContext) {
         addedToCart.value = [...addedToCart.value, id]
     }
 
+    const generateLink = async () => {
+
+    try {
+        const {data} = await axios.post('links', {
+            products: selected.value
+        })
+
+        link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}}`;
+        }
+        catch (e) {
+            error.value = 'You should be logged in to generate a link! '
+        }
+        finally {
+            setTimeout( () => {
+               // link.value = '';
+                error.value = '';
+
+            }, 5000); // after 5 seconds reset msg
+
+                        setTimeout( () => {
+                link.value = '';
+               
+
+            }, 60000); // after 60 seconds reset msg
+        }
+
+
+    }
+
+    const generateCart = async () => {
+    //replace with cart
+        const {data} = await axios.post('links', {
+            products: selected.value
+        })
+
+    }
+
     return {
         selected,
         addedToCart,
@@ -144,7 +193,10 @@ setup(props: any, context: SetupContext) {
         addToCart,
         search,
         sort,
-        loadMore
+        loadMore,
+        link,
+        generateLink,
+        generateCart
     }
 }
 }
