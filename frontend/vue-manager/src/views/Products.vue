@@ -160,6 +160,7 @@ setup(props: any, context: SetupContext) {
         }
         catch (e) {
             error.value = 'You should be logged in to generate a link! '
+            alert(error.value)
         }
         finally {
             setTimeout( () => {
@@ -168,11 +169,12 @@ setup(props: any, context: SetupContext) {
 
             }, 5000); // after 5 seconds reset msg
 
-                        setTimeout( () => {
+           /*             setTimeout( () => {
                 link.value = '';
                
 
             }, 60000); // after 60 seconds reset msg
+            */
         }
 
 
@@ -196,7 +198,8 @@ setup(props: any, context: SetupContext) {
         loadMore,
         link,
         generateLink,
-        generateCart
+        generateCart,
+        error
     }
 }
 }
