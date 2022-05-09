@@ -16,8 +16,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     component: Layout,
     children: [
-      {path: '', component: ProductsFrontend},
-      {path: '/backend', component: ProductsBackend},
+     // {path: '', component: ProductsFrontend},
+      {path: '', component: ProductsBackend},
       {path: '/profile', component: Profile},
       {path: '/stats', component: Stats},
       {path: '/rankings', component: Rankings},
