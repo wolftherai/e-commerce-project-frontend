@@ -35,7 +35,7 @@
         v-for="product in products" 
         :key="product.id"
         >
-        <div class="card shadow-sm">
+        <div :class="selected.some(s => s === product.id) ? 'card shadow-sm selected' : 'card shadow-sm '" >
         <img :src="product.image" height="200"/>
 
             <div class="card-body">
@@ -48,7 +48,14 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                <button v-if="addedToCart.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="addToCart(product.id)" >Remove from cart</button>
+                <button v-if="addedToCart.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product.id)" >Add to cart</button>
+               
+                <button v-if="selected.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="select(product.id)" >Remove from selected</button>
+                <button v-if="selected.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="select(product.id)" >Add to selected</button>
+
+
+        
                 </div>
                 <small class="text-muted">{{product.price}} €</small>
             </div>
@@ -57,12 +64,12 @@
     </div>
 
 </div>
-<div  class="d-flex justify-content-between mt-4">
+<div  class="py-5 text-center container">
 <button class="btn btn-primary" @click="loadMore" >Load More</button>
 </div>
 </template>
 <script lang="ts">
-import {SetupContext} from "vue"
+import {SetupContext, ref} from "vue"
 import axios from 'axios'
 import {Product} from "@/models/product"
 //import uniq from 'lodash/uniq'
@@ -73,6 +80,10 @@ props: ['products', 'filters'],
 emits: ['set-filters'],
 
 setup(props: any, context: SetupContext) {
+
+    const selected = ref<number[]>([]); // selected products
+
+    const addedToCart = ref<number[]>([]); // added to cart
 
    /* const manufacturer => {
         pr : this.products
@@ -100,7 +111,37 @@ setup(props: any, context: SetupContext) {
         });
     }
 
+    const select = (id:number) => {
+         //addedToCart.value = [...addedToCart.value, id]
+        //remove id
+        if(selected.value.some(s => s === id))
+        {
+            selected.value = selected.value.filter(s => s!== id);
+            return;
+        }
+
+        selected.value = [...selected.value, id]
+
+        
+
+    }
+    
+    const addToCart = (id:number) => {
+        //remove id
+        // addedToCart.value = [...addedToCart.value, id]
+        if(addedToCart.value.some(s => s === id))
+        {
+            addedToCart.value = addedToCart.value.filter(s => s!== id);
+            return;
+        }
+        addedToCart.value = [...addedToCart.value, id]
+    }
+
     return {
+        selected,
+        addedToCart,
+        select,
+        addToCart,
         search,
         sort,
         loadMore
@@ -109,3 +150,16 @@ setup(props: any, context: SetupContext) {
 }
 
 </script>
+
+<style scoped>
+.card {
+    cursor: pointer;
+}
+
+.card.selected {
+    border: 4px solid darkcyan;
+}
+button.selected {
+    color: red
+}
+</style>
