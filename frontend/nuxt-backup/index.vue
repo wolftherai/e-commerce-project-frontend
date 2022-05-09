@@ -1,39 +1,30 @@
 <template>
-  
+    
 <div class="container">
   <main>
     <div class="py-5 text-center">
       <h2>Welcome</h2>
-      <p class="lead"> {{user.first_name}} {{user.last_name}} has invited you to buy these products!</p>
+      <p class="lead"> jas invited you to buy these products!</p>
     </div>
 
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-primary">Products cart</span>
-          <span class="badge bg-primary rounded-pill">{{products.length}}</span>
+          <span class="badge bg-primary rounded-pill">3</span>
         </h4>
         <ul class="list-group mb-3">
-        <template v-for="product in products">
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">{{product.title}}</h6>
-              <small class="text-muted">{{product.description}}</small>
+              <h6 class="my-0">Product name</h6>
+              <small class="text-muted">Brief description</small>
             </div>
-            <span class="text-muted">{{product.price}} €</span>
+            <span class="text-muted">$12</span>
           </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Quantity</h6>
-              
-            </div>
-            <input v-model="quantities[product.id]" class="text-muted form-control quantity"  type="number" min="0"/>
-          </li>          
-          </template>
           
           <li class="list-group-item d-flex justify-content-between">
-            <span>Total (EUR)</span>
-            <strong>{{total}} €</strong>
+            <span>Total (USD)</span>
+            <strong>$20</strong>
           </li>
         </ul>
 
@@ -92,48 +83,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {Context} from '@nuxt/types'
 
 export default Vue.extend({
-//prerender page html
-
-async asyncData(ctx: Context){
-
-  const {data} = await ctx.$axios.get(`links/${ctx.params.code}`);
-   const user = data.user;
-   const products = data.products;
-   let  quantities = <number[]>([]);
-   products.forEach(
-     p => {
-       quantities[p.id] = 0;
-     }
-   );
-    return {
-      user,
-      products,
-      quantities
-    }
-},
-  data() {
-    return {
-      user: null,
-      products: [],
-      quantities: []
-    }
-  },
-  computed: {
-    total() {
-      return this.products.reduce(
-        (s, p) => {
-          return s + p.price * this.quantities[p.id];
-        }, 0);
-    }
-  }
-
+  name: 'IndexPage'
 })
 </script>
-<style>
-.quantity{
-  width: 65px;
-}
-</style>
