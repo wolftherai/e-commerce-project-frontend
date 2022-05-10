@@ -156,7 +156,7 @@ setup(props: any, context: SetupContext) {
             products: selected.value
         })
 
-        link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}}`;
+        link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}`;
         }
         catch (e) {
             error.value = 'You should be logged in to generate a link! '

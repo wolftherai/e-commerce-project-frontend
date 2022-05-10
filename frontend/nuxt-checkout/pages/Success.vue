@@ -5,6 +5,7 @@
 <div class="py-5 text-center">
 <h2 class="load">Success</h2>
 <p class>Your purchase has been completed!</p>
+<a href="http://localhost:4000/ ">Main page</a>
 </div>
 </main>
 </div>
