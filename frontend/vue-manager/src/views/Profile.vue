@@ -95,7 +95,7 @@ setup() {
 const infoSubmit= async () => {
     const {data} = await axios.put('users/info', infoData)
     .then((response) => {
-        alert('Profile Info Updated!' + response.data);
+        alert('Profile Info Updated!' );//+ response.data);
        // await store.dispatch('setUser', data);
       //  this.route.go();
     })
@@ -111,12 +111,12 @@ const infoSubmit= async () => {
 
 const passwordSubmit= async () => {
     await axios.put('users/password', passwordData).then((response) => {
-        alert('Password changed!' + response.data);
+        alert('Password changed!');// + response.data);
         //await store.dispatch('setUser', data);
         // this.route.go();
     }).catch((error) => {
         // handle this error here
-      //  alert('Error ocurred! Try again');
+        alert('Error ocurred! Try again');
     })
     .finally(() => {
     passwordData.password =''
