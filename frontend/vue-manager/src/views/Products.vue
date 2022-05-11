@@ -28,14 +28,14 @@
     </div>
                 <select class="form-select" @change="sort($event.target.value)">
             <option>Select manufacturer</option>
-                <option v-for="product in [...new Set(products.map(x => x.manufacturer))]" v-bind:value="product">
+                <option v-for="product in [...new Set(products.map(x => x.manufacturer_name))]" v-bind:value="product">
                 {{ product }}
                 </option>
              </select>
 
             <select class="form-select" @change="sort($event.target.value)">
              <option>Select brand</option>
-                <option v-for="product in [...new Set(products.map(x => x.brand))]" v-bind:value="product">
+                <option v-for="product in [...new Set(products.map(x => x.brand_name))]" v-bind:value="product">
                 {{ product }}
              </option>
             </select>
@@ -52,9 +52,12 @@
             <div class="card-body">
             <p class="card-text">{{product.title}}</p>
 
-            <p  class="text-muted"> OEM: {{product.oem_part_number}}</p>
+             <p  class="text-muted">  {{product.manufacturer_name}} |  {{product.category_name}} | {{product.brand_name}} </p>
 
             <p  class="text-muted"> OEM: {{product.oem_part_number}}</p>
+
+           
+            <p  class="text-muted"> </p>
         
             <small class="text-muted">{{product.description}} </small>
             <br>

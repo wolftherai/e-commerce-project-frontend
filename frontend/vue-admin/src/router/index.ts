@@ -29,7 +29,7 @@ const routes: Array<RouteConfig> = [
     path: '',
     component: Layout,
     children: [
-        {path: '', redirect: '/users'},
+        {path: '', redirect: '/products'},
         {path: '/users', component: Users},
         {path: '/users/:id/links', component: Links},
 

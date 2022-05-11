@@ -28,9 +28,9 @@
                 <td> <v-img :src="product.image" max-height="80" max-width="120"/></td>
                 <td>{{ product.title }}</td>
                 <td>{{ product.oem_part_number }}</td>
-                <td>{{ product.brand }}</td>
-                <td>{{ product.manufacturer }}</td>
-                <td>  </td>
+                <td>{{ product.brand_name }}</td>
+                <td>{{ product.manufacturer_name }}</td>
+                <td>{{ product.category_name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }} €</td>
                 <td>
