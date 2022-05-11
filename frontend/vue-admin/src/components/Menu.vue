@@ -8,9 +8,23 @@
             <router-link to="/products" class="nav-link"  active-class="active">
                 Products
             </router-link>
+
+            <router-link to="/categories" class="nav-link"  active-class="active">
+                Categories
+            </router-link>
+
+            <router-link to="/brands" class="nav-link"  active-class="active">
+                Brands
+            </router-link>
+            
+            <router-link to="/manufacturers" class="nav-link"  active-class="active">
+                Manufacturers
+            </router-link>
+
             <router-link to="/orders" class="nav-link"  active-class="active">
                 Orders
             </router-link>
+ 
             </li>
         </ul>
     </div>
