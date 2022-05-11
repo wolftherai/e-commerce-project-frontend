@@ -57,14 +57,16 @@
             <small class="text-muted">{{product.description}} </small>
             <br>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button v-if="addedToCart.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="addToCart(product.id)" >Remove from cart</button>
-                <button v-if="addedToCart.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product.id)" >Add to cart</button>
-               
-                <button v-if="selected.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="select(product.id)" >Remove from selected</button>
-                <button v-if="selected.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="select(product.id)" >Add to selected</button>
+                <div class="btn-group" v-if="user">
+                   
+                    <button v-if="addedToCart.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="addToCart(product.id)" >Remove from cart</button>
+                    <button v-if="addedToCart.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product.id)" >Add to cart</button>
+                </div>
 
+                 <div class="btn-group" v-if="!user">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button v-if="selected.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="select(product.id)" >Remove from selected</button>
+                    <button v-if="selected.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="select(product.id)" >Add to selected</button>
 
         
                 </div>
@@ -157,6 +159,7 @@ setup(props: any, context: SetupContext) {
         })
 
         link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}`;
+        
         }
         catch (e) {
             error.value = 'You should be logged in to generate a link! '
@@ -182,10 +185,29 @@ setup(props: any, context: SetupContext) {
 
     const generateCart = async () => {
     //replace with cart
-        const {data} = await axios.post('links', {
-            products: selected.value
+        // const {data} = await axios.post('links', {
+        //     products: selected.value
+        // })
+ try {
+        const {data} = await axios.post('cart', {
+            products: addedToCart.value
         })
 
+        link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}`;
+
+        //await this.$router.push(cart)
+        }
+        catch (e) {
+            error.value = 'You should be logged in to generate a link! '
+            alert(error.value)
+        }
+        finally {
+            setTimeout( () => {
+               // link.value = '';
+                error.value = '';
+
+            }, 5000); 
+    }
     }
 
     return {

@@ -55,16 +55,7 @@
             return-object/>
     </template>
 
-        </div>
-
-
-        <div class="mb-3">
-            <v-text-field label="Brand" v-model="brand"/>
-        </div>
-
-        <div class="mb-3">
-            <v-text-field label="Manufacturer" v-model="manufacturer"/>
-        </div>                        
+        </div>                  
 
         <div class="mb-3">
             <v-text-field label="Description" v-model="description"/>
@@ -95,7 +86,7 @@ name: "ProductForm",
             description : '',
             image : '',
             price : '',
-            
+
             categories: [],
             brands: [],
             manufacturers: [],
