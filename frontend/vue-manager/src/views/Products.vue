@@ -18,7 +18,7 @@
     <div class="input-group-append">
         <select class="form-select" @change="sort($event.target.value)">
         
-            <option>Select</option>
+            <option>Sort by:</option>
             <option value="asc">Price Ascending</option>
             <option value="desc">Price Descending</option>
         </select>
@@ -53,17 +53,19 @@
             <p class="card-text">{{product.title}}</p>
 
             <p  class="text-muted"> OEM: {{product.oem_part_number}}</p>
+
+            <p  class="text-muted"> OEM: {{product.oem_part_number}}</p>
         
             <small class="text-muted">{{product.description}} </small>
             <br>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group" v-if="user">
+                <div class="btn-group" v-if="user != null">
                    
                     <button v-if="addedToCart.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="addToCart(product.id)" >Remove from cart</button>
                     <button v-if="addedToCart.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product.id)" >Add to cart</button>
                 </div>
 
-                 <div class="btn-group" v-if="!user">
+                 <div class="btn-group" v-if="user == null">
                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button v-if="selected.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="select(product.id)" >Remove from selected</button>
                     <button v-if="selected.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="select(product.id)" >Add to selected</button>
