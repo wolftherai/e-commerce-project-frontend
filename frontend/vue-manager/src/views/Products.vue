@@ -10,44 +10,61 @@
 <button v-if="addedToCart.length>0" class="btn btn-info" @click="generateCart"   > Go to checkout </button>
 </div>
 
-<div class="col-md-12 mb-4 input-group">
-    <input class="form-control" placeholder="Search" @keyup="search($event.target.value)"/>
 
+<div class="col-md-12 mb-5 input-group">
 
+    <input value="" id="searchInput" class="form-control" placeholder="Search" @keyup="search($event.target.value)"/>
 
     <div class="input-group-append">
-        <select class="form-select" @change="sort($event.target.value)">
+        <select :value="filters.sort" class="form-select" @change="sort($event.target.value)">
         
-            <option>Sort by:</option>
+            <option value="">Sort by:</option>
             <option value="asc">Price Ascending</option>
             <option value="desc">Price Descending</option>
         </select>
 
-
-
     </div>
-                <select class="form-select" @change="sort($event.target.value)">
-            <option>Select manufacturer</option>
-                <option v-for="product in [...new Set(products.map(x => x.manufacturer_name))]" v-bind:value="product">
-                {{ product }}
-                </option>
-             </select>
 
-            <select class="form-select" @change="sort($event.target.value)">
-             <option>Select brand</option>
-                <option v-for="product in [...new Set(products.map(x => x.brand_name))]" v-bind:value="product">
-                {{ product }}
-             </option>
-            </select>
 </div>
 
+<div class="col-md-12 mb-5 input-group">
+<button  class="btn btn-info" @click="restoreFilters"   > Restore filters </button>
+    <div class="input-group-append">
+          <select :value="filters.category" class="form-select" @change="category($event.target.value)">
+            <option  value="">Select category</option>
+                <option v-for="category in [...new Set(products.map(x => x.category_name))]" v-bind:value="category">
+                {{ category }}
+                </option>
+             </select>
+    </div>
+    <div class="input-group-append">
+             <select :value="filters.manufacturer"  class="form-select" @change="manufacturer($event.target.value)">
+            <option  value="">Select manufacturer</option>
+                <option v-for="manufacturer in [...new Set(products.map(x => x.manufacturer_name))]" v-bind:value="manufacturer">
+                {{ manufacturer }}
+                </option>
+             </select>
+    </div>
+    <div class="input-group-append">
+            <select :value="filters.brand"  class="form-select" @change="brand($event.target.value)">
+             <option value="">Select brand</option>
+                <option v-for="brand in [...new Set(products.map(x => x.brand_name))]" v-bind:value="brand">
+                {{ brand }}
+             </option>
+            </select>
+
+    </div>
+
+</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <div class="col"
         v-for="product in products" 
         :key="product.id"
         >
         <div :class="selected.some(s => s === product.id) ? 'card shadow-sm selected' : 'card shadow-sm '" >
-        <img :src="product.image" height="200"/>
+          <div class="embed-responsive ">
+            <img alt="Card image cap" class="card-img-top embed-responsive-item" :src="product.image" />
+        </div>
 
             <div class="card-body">
             <p class="card-text">{{product.title}}</p>
@@ -104,28 +121,70 @@ setup(props: any, context: SetupContext) {
 
     const addedToCart = ref<number[]>([]); // added to cart
 
-    const error = ref('')
+    const error = ref('');
 
-   /* const manufacturer => {
-        pr : this.products
-    }*/
-    //const manufacturer = [...new Set(...props.products.map(x => x.id))]; // your code from above
+
+    const restoreFilters = () => {
+        context.emit('set-filters', {
+            ...props.filters,
+            restoreFilters: true,
+            s: '',
+            sort: '',
+            category: '',
+            manufacturer: '',
+            brand: '',
+            page: 1
+        });
+        
+    }
     const search = (s: string) => {
+        if(s.length > 2){
         context.emit('set-filters', {
           ...props.filters,
           s,
+          restoreFilters: false,
           page: 1
         });
+        }
     }
 
         const sort = (sort: string) => {
         context.emit('set-filters', {
             ...props.filters,
             sort,
+            restoreFilters: false,
             page: 1
         });
     }
-    const loadMore = () => {
+
+        const category = (category: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            category,
+            restoreFilters: false,
+            page: 1
+        });
+        selectedCategory: category;
+    }
+
+        const manufacturer = (manufacturer: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            manufacturer,
+            restoreFilters: false,
+            page: 1
+        });
+    }
+
+        const brand = (brand: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            brand,
+            restoreFilters: false,
+            page: 1
+        });
+    }
+        const loadMore = () => {
         context.emit('set-filters', {
             ...props.filters,
             page: props.filters.page + 1
@@ -222,11 +281,16 @@ setup(props: any, context: SetupContext) {
         addToCart,
         search,
         sort,
+        category,
+        brand,
+        manufacturer,
         loadMore,
         link,
         generateLink,
         generateCart,
-        error
+        error,
+        restoreFilters,
+
     }
 }
 }
@@ -243,5 +307,10 @@ setup(props: any, context: SetupContext) {
 }
 button.selected {
     color: red
+}
+.embed-responsive .card-img-top {
+    
+    height: 200px;
+    object-fit: cover;
 }
 </style>
