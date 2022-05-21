@@ -86,12 +86,12 @@ name: "ProductForm",
             description : '',
             image : '',
             price : '',
-
+            category: '',
             categories: [],
             brands: [],
             manufacturers: [],
             
-            category: '',
+            
 
             selectedCategory: { id: '1', name: ''},
             selectedBrand: { id: '1', name: ''},
