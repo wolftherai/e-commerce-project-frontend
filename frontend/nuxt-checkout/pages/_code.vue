@@ -2,9 +2,14 @@
   
 <div class="container">
   <main>
-    <div class="py-5 text-center">
+    <div v-if="user.is_manager" class="py-5 text-center">
       <h2>Welcome</h2>
       <p class="lead"> {{user.first_name}} {{user.last_name}} has invited you to buy these products!</p>
+    </div>
+
+    <div v-if="user.is_customer" class="py-5 text-center">
+      <h2>Welcome</h2>
+      <p class="lead"> {{user.first_name}} {{user.last_name}}</p>
     </div>
 
     <div class="row g-5">
@@ -17,18 +22,26 @@
         <template v-for="product in products">
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">{{product.title}}</h6>
-              <small class="text-muted">{{product.description}}</small>
-            </div>
-            <span class="text-muted">{{product.price}} €</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Quantity</h6>
               
+              <h6 class="my-0">Product</h6><br>
+              <small class="my-0">{{product.title}}</small><br>
+              <small class="text-muted">OEM:</small><br>
+              <small class="text-muted">{{product.oem_part_number}}</small>
             </div>
+            <br>
+            <div>
+              <h6 class="my-0">Price</h6><br>
+             
+              <span class="text-muted">{{product.price}} €</span>
+            </div><br>
+
+              <div><h6 class="my-0">Quantity</h6><br>
             <input v-model="quantities[product.id]" class="text-muted form-control quantity"  type="number" min="0"/>
-          </li>          
+            </div>
+
+          </li>
+          
+        
           </template>
           
           <li class="list-group-item d-flex justify-content-between">
@@ -101,6 +114,7 @@ async asyncData(ctx: Context){
 
   const {data} = await ctx.$axios.get(`links/${ctx.params.code}`);
    const user = data.user;
+   
    const products = data.products;
    let  quantities = <number[]>([]);
    products.forEach(
@@ -108,8 +122,16 @@ async asyncData(ctx: Context){
        quantities[p.id] = 0;
      }
    );
+      
+  const first_name = user.is_customer ? user.first_name:'';
+  const last_name = user.is_customer ? user.last_name:'';
+  const email = user.is_customer ? user.email:'';
+   
     return {
       user,
+      first_name,
+      last_name,
+      email,
       products,
       quantities
     }
@@ -141,8 +163,8 @@ async asyncData(ctx: Context){
       zip: this.zip,
       code: this.$route.params.code,
       products: this.products.map(p => ({
-        product_id: p.id,
-        quantity: this.quantities[p.id]
+      product_id: p.id,
+      quantity: this.quantities[p.id]
       }))
      });
      console.log(data)
