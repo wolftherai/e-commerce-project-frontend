@@ -9,21 +9,7 @@
             <v-text-field label="OEM part number" v-model="oem_part_number" />
         </div> 
 
-        <div  style="width:300px">
-    <template>
-        <v-select @change="onChange()"
-            v-model="selectedCategory"
-            :items="categories"
-          
-            item-text="name"
-            item-value="id"
-            label="Category"
-            :value="selectedCategory"
-        
-            return-object/>
-    </template>
 
-        </div>
 
                 <div  style="width:300px">
     <template>
@@ -40,6 +26,25 @@
     </template>
 
         </div>
+
+
+
+        <div  style="width:300px">
+    <template>
+        <v-select @change="onChange()"
+            v-model="selectedCategory"
+            :items="categories"
+          
+            item-text="name"
+            item-value="id"
+            label="Category"
+            :value="selectedCategory"
+        
+            return-object/>
+    </template>
+
+        </div>
+
 
                 <div  style="width:300px">
     <template>
@@ -79,20 +84,17 @@ export default {
 name: "ProductForm",
     data() {
         return {
-            title : '',
-            oem_part_number : '',
-            brand : '',
-            manufacturer : '',
-            description : '',
-            image : '',
-            price : '',
+            title: '',
+            oem_part_number: '',
+            brand: '',
+            manufacturer: '',
+            description: '',
+            image: '',
+            price: '',
             category: '',
             categories: [],
             brands: [],
             manufacturers: [],
-            
-            
-
             selectedCategory: { id: '1', name: ''},
             selectedBrand: { id: '1', name: ''},
             selectedManufacturer: { id: '1', name: ''},
@@ -118,19 +120,24 @@ name: "ProductForm",
             this.selectedManufacturer.id = data.manufacturer;
 
         }
+            const catData = await this.$http.get(`categories`);
+            this.categories = catData.data ;
+            console.log(this.categories)
+
+            const brandData = await this.$http.get(`brands`);
+            this.brands = brandData.data
+            console.log(this.brands)
+
+            const manufacturerData = await this.$http.get(`manufacturers`);
+            this.manufacturers = manufacturerData.data
+            console.log(this.manufacturers)
+
+
+
     }  ,        async  created () {
-                    const catData = await this.$http.get(`categories`);
-                    this.categories = catData.data
-                    console.log(this.categories)
+                   // sleep
 
-                    const brandData = await this.$http.get(`brands`);
-                    this.brands = brandData.data
-                    console.log(this.brands)
 
-                    const manufacturerData = await this.$http.get(`manufacturers`);
-                    this.manufacturers = manufacturerData.data
-                    console.log(this.manufacturers)
-                   // this.defaultSelected.id = this.category_id
                 },
     methods: {
 
