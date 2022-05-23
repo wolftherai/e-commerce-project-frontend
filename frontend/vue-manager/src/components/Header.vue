@@ -29,9 +29,9 @@ export default{
       const user = computed(
         () => store.state.user);
 
-      title.value = user.value ? user.value.revenue  +  ' €' : 'Welcome'
+      title.value = user.value ? (!user.value.is_customer?user.value.revenue+' €':'Welcome'  ) : 'Welcome'
 
-      description.value = user.value ? ' You have earned this far ' : 'Share links to earn money!'
+      description.value = user.value ? (!user.value.is_customer?' You have earned this far ':'') : ''
 
     /*  setTimeout(
         () => {
@@ -41,9 +41,9 @@ export default{
 
       // watcher on value change
       watch(user, () => {
+     title.value = user.value ? (!user.value.is_customer?user.value.revenue+' €':'Welcome'  ) : 'Welcome'
 
-      title.value = user.value ? user.value.revenue +  ' €' : 'Welcome'
-      description.value = user.value ? ' You have earned this far ' : 'Share links to earn money!'
+      description.value = user.value ? (!user.value.is_customer?' You have earned this far ':'') : ''
       });
 
       return {
