@@ -26,7 +26,7 @@
               <h6 class="my-0">Product</h6><br>
               <small class="my-0">{{product.title}}</small><br>
               <small class="text-muted">OEM:</small><br>
-              <small class="text-muted">{{product.oem_part_number}}</small>
+              <small class="text-muted">{{product.oem_part_code}}</small>
             </div>
             <br>
             <div>

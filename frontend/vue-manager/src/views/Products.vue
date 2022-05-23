@@ -71,7 +71,7 @@
 
              <p  class="text-muted">  {{product.manufacturer_name}} |  {{product.category_name}} | {{product.brand_name}} </p>
 
-            <p  class="text-muted"> OEM: {{product.oem_part_number}}</p>
+            <p  class="text-muted"> OEM: {{product.oem_part_code}}</p>
 
            
             <p  class="text-muted"> </p>

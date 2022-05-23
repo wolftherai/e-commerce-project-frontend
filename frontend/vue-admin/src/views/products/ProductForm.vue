@@ -1,14 +1,27 @@
 
 <template>
-<div style="margin-top:2%">
+<div style="margin-top:2%" >
 <form @submit.prevent="submit" style="margin-right: 10px">
-        <div class="mb-3">
+        <div class="mb-3" style="width:850px">
             <v-text-field label="Title" v-model="title"/>
         </div>
-        <div class="mb-3">
-            <v-text-field label="OEM part number" v-model="oem_part_number" />
-        </div> 
+    
+    <div  style="width:300px">
+    <template>
+   
+        <v-select @change="onChange()"
+            v-model="selectedOEM_code"
+            :items="OEM_codes"
+          
+            item-text="code"
+            item-value="id"
+            label="OEM code"
+            :value="selectedOEM_code"
+        
+            return-object/>
+    </template>
 
+        </div>
 
 
                 <div  style="width:300px">
@@ -62,10 +75,10 @@
 
         </div>                  
 
-        <div class="mb-3">
+        <div class="mb-3" style="width:850px">
             <v-text-field label="Description" v-model="description"/>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="width:850px">
             <v-text-field label="Image" v-model="image"/>
         </div>
 
@@ -85,16 +98,19 @@ name: "ProductForm",
     data() {
         return {
             title: '',
-            oem_part_number: '',
+            //oem_part_code: '',
+            OEM_code: '',
             brand: '',
             manufacturer: '',
             description: '',
             image: '',
             price: '',
             category: '',
+            OEM_codes: [],
             categories: [],
             brands: [],
             manufacturers: [],
+            selectedOEM_code: { id: '1', code: ''},
             selectedCategory: { id: '1', name: ''},
             selectedBrand: { id: '1', name: ''},
             selectedManufacturer: { id: '1', name: ''},
@@ -110,16 +126,21 @@ name: "ProductForm",
             const {data} = await this.$http.get(`products/${this.$route.params.id}`);
             console.log(data)
             this.title = data.title;
-            this.oem_part_number = data.oem_part_number;
+            //this.oem_part_code = data.oem_part_code;
             this.description = data.description;
             this.image = data.image;
             this.price = data.price;
             this.description = data.description;
+            this.selectedOEM_code.id = data.oem_part;
             this.selectedCategory.id = data.category;
             this.selectedBrand.id = data.brand;
             this.selectedManufacturer.id = data.manufacturer;
 
         }
+            const oemData = await this.$http.get(`oem_parts`);
+            this.OEM_codes = oemData.data ;
+            console.log(this.OEM_codes)
+
             const catData = await this.$http.get(`categories`);
             this.categories = catData.data ;
             console.log(this.categories)
@@ -153,10 +174,11 @@ name: "ProductForm",
         async submit() {
             const data = {
                 title: this.title,
-                oem_part_number: this.oem_part_number,
+               
                 description: this.description,
                 image: this.image,
                 price: this.price,
+                oem_part: this.selectedOEM_code.id,
                 category: this.selectedCategory.id,
                 brand: this.selectedBrand.id,
                 manufacturer: this.selectedManufacturer.id 

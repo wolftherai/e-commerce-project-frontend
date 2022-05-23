@@ -1,6 +1,6 @@
 export class Product {
     title!: string;
-    oem_part_number!: string;
+    oem_part_code!: string;
     brand!: number;
     manufacturer!: number;
     category!: number;

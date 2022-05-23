@@ -10,7 +10,7 @@
             <th class="text-left">#</th>
             <th class="text-left">Image</th>
             <th class="text-left">Title</th>
-            <th class="text-left">OEM part number</th>
+            <th class="text-left">OEM part code</th>
             <th class="text-left">Brand</th>
             <th class="text-left">Manufacturer</th>
             <th class="text-left">Category</th>
@@ -27,7 +27,7 @@
                 <td>{{ product.id }}</td>
                 <td> <v-img :src="product.image" max-height="80" max-width="120"/></td>
                 <td>{{ product.title }}</td>
-                <td>{{ product.oem_part_number }}</td>
+                <td>{{ product.oem_part_code }}</td>
                 <td>{{ product.brand_name }}</td>
                 <td>{{ product.manufacturer_name }}</td>
                 <td>{{ product.category_name }}</td>
