@@ -7,6 +7,7 @@ import ProductsFrontend from '@/views/ProductsFrontend.vue'
 import ProductsBackend from '@/views/ProductsBackend.vue'
 
 import Stats from '@/views/Stats.vue'
+import Orders from '@/views/Orders.vue'
 import Rankings from '@/views/Rankings.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -20,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       {path: '', component: ProductsBackend},
       {path: '/profile', component: Profile},
       {path: '/stats', component: Stats},
+      {path: '/orders', component: Orders},
       {path: '/rankings', component: Rankings},
   ]
   }
