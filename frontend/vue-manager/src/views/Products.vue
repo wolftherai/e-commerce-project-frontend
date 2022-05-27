@@ -10,6 +10,42 @@
 <button v-if="addedToCart.length>0" class="btn btn-info" @click="generateCart"   > Go to checkout </button>
 </div>
 
+    <div class="input-group-append">
+     
+    <div class="input-group-append">
+            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" >
+             <option value="">Select car Make</option>
+             <option v-for="model in products"
+              v-bind:value="model">
+               {{ model.car_makes[0]}}
+
+             </option>
+            </select>
+
+            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" >
+             <option value="">Select car model</option>
+             <option v-for="model in products"
+              v-bind:value="model">
+               {{ model.car_model_names[0]}}
+
+             </option>
+            </select>            
+
+
+            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" @keyup="sort($event.target.value)">
+             <option value="">Select car model years</option>
+             
+             <option v-for="model in products"
+              v-bind:value="model">
+               {{ model.car_model_years[0]}}
+
+             </option>
+            </select>
+    </div>  
+    </div>  
+    <div>
+
+    <br></div>
 
 <div class="col-md-12 mb-5 input-group">
 
@@ -54,6 +90,10 @@
             </select>
 
     </div>
+    
+
+
+
 
 </div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -103,10 +143,11 @@
 <button class="btn btn-primary" @click="loadMore" >Load More</button>
 </div>
 </template>
-<script lang="ts">
+<script lang="ts"   >
 import {SetupContext, ref} from "vue"
 import axios from 'axios'
 import {Product} from "@/models/product"
+//import recombeeIntegration from "https://web-integration.recombee.com/v1/recombee.js"
 //import uniq from 'lodash/uniq'
 
 export default {
@@ -115,6 +156,24 @@ props: ['products', 'filters'],
 emits: ['set-filters'],
 
 setup(props: any, context: SetupContext) {
+/*
+ window.recombeeIntegration=window.recombeeIntegration||function(){
+                (recombeeIntegration.q=recombeeIntegration.q||[]).push(arguments)
+                };recombeeIntegration.l=+new Date;
+
+	recombeeIntegration({
+		"type": "SetDefaults",
+		"userId": USER_ID,
+		"publicToken": "AQP5rakC7mj0dHYG1vBA1pj4wCaUeybFCDk3Spm5d5C18TGKPjDST18eJC0ytYRi",
+		"databaseId": "vilnius-tech-dev",
+		"rapiHostname": "client-rapi.recombee.com:443"
+	});
+	recombeeIntegration({
+		"type": "InitializeRecommendationWidget",
+		"rootElementId": "widget-root-17096d3d-2fc7-4513-9d12-b29ad28d0435",
+		"widgetId": "17096d3d-2fc7-4513-9d12-b29ad28d0435"
+	});
+*/
 
     const link =  ref('')
     const selected = ref<number[]>([]); // selected products
@@ -192,6 +251,8 @@ setup(props: any, context: SetupContext) {
     }
 
     const select = (id:number) => {
+           
+
          //addedToCart.value = [...addedToCart.value, id]
         //remove id
         if(selected.value.some(s => s === id))
@@ -314,3 +375,5 @@ button.selected {
     object-fit: cover;
 }
 </style>
+  
+
