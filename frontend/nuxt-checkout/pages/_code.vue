@@ -36,7 +36,7 @@
             </div><br>
 
               <div><h6 class="my-0">Quantity</h6><br>
-            <input v-model="quantities[product.id]" class="text-muted form-control quantity"  type="number" min="0"/>
+            <input v-model="quantities[product.id]" class="text-muted form-control quantity"  type="number" min="1"/>
             </div>
 
           </li>
@@ -119,7 +119,7 @@ async asyncData(ctx: Context){
    let  quantities = <number[]>([]);
    products.forEach(
      p => {
-       quantities[p.id] = 0;
+       quantities[p.id] = 1;
      }
    );
       
