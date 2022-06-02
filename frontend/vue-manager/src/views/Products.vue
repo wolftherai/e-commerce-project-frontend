@@ -1,70 +1,60 @@
 <template>
-<div  class="py-5 text-center container">
-<div v-if="link" class="alert alert-info"  role="alert" > {{link}}</div>
-<div v-if="error" class="alert alert-danger"  role="alert" > {{error}}</div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li  class="breadcrumb-item active" aria-current="page">Products</li>
+  </ol>
+</nav>
+<div >
+    <div  v-if="link" class="alert alert-info text-center"  role="alert" > {{link}}</div>
+    <div v-if="error" class="alert alert-danger text-center"  role="alert" > {{error}}</div>
 
 </div>
 
-<div  class="py-5 text-center container"  >
-<button v-if="selected.length>0" class="btn btn-info" @click="generateLink" > Generate checkout link</button>
-<button v-if="addedToCart.length>0" class="btn btn-info" @click="generateCart"   > Go to checkout </button>
+<div class="text-center">
+<button v-if="selected.length>0" class="btn btn-info " @click="generateLink" > Generate checkout link </button>
+<button v-if="addedToCart.length>0" class="btn btn-info  "  @click="generateCart"   > Go to checkout </button>
 </div>
 
-    <div class="input-group-append">
-     
-    <div class="input-group-append">
-            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" >
-             <option value="">Select car Make</option>
-             <option v-for="model in products"
-              v-bind:value="model">
-               {{ model.car_makes[0]}}
+    
+            
+            <div class=" row row-cols-1 card shadow-sm text-center"  style="max-width: 350px; padding: 20px">
+            <h3>Filter by car model </h3>
+                    <select :value="filters.car_make"  class="form-select  form-select-lg mb-3" @change="car_make($event.target.value)" >
+                    <option value="">Select Car Make</option>
+                    <option v-for="model in products"
+                    v-bind:value="model.car_makes[0]">
+                    {{ model.car_makes[0]}}
 
-             </option>
-            </select>
+                    </option>
+                    </select>
 
-            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" >
-             <option value="">Select car model</option>
-             <option v-for="model in products"
-              v-bind:value="model">
-               {{ model.car_model_names[0]}}
+                    <select v-if="filters.car_make != '' " :value="filters.car_model"  class="form-select  form-select-lg mb-3" @change="car_model($event.target.value)" >
+                    <option value="">Select Car Model</option>
+                    <option v-for="model in products"
+                    v-bind:value="model.car_model_names[0]">
+                    {{ model.car_model_names[0]}}
 
-             </option>
-            </select>            
+                    </option>
+                    </select>            
 
 
-            <select :value="filters.brand"  class="form-select  form-select-lg mb-3" @keyup="sort($event.target.value)">
-             <option value="">Select car model years</option>
-             
-             <option v-for="model in products"
-              v-bind:value="model">
-               {{ model.car_model_years[0]}}
+                    <select v-if="filters.car_model != '' " :value="filters.car_model_year"  class="form-select  form-select-lg mb-3" @change="car_model_year($event.target.value)" >
+                    <option value="">Select Car Model Year</option>
+                    
+                    <option v-for="model in products"
+                    v-bind:value=" model.car_model_years[0]">
+                    {{ model.car_model_years[0]}}
 
-             </option>
-            </select>
-    </div>  
-    </div>  
+                    </option>
+                    </select>
+            </div>      <div class="input-group-append">
+        </div>  
     <div>
 
     <br></div>
-
+ 
+ <h3>Filters </h3>
 <div class="col-md-12 mb-5 input-group">
-
-    <input value="" id="searchInput" class="form-control" placeholder="Search" @keyup="search($event.target.value)"/>
-
-    <div class="input-group-append">
-        <select :value="filters.sort" class="form-select" @change="sort($event.target.value)">
-        
-            <option value="">Sort by:</option>
-            <option value="asc">Price Ascending</option>
-            <option value="desc">Price Descending</option>
-        </select>
-
-    </div>
-
-</div>
-
-<div class="col-md-12 mb-5 input-group">
-<button  class="btn btn-info" @click="restoreFilters"   > Restore filters </button>
     <div class="input-group-append">
           <select :value="filters.category" class="form-select" @change="category($event.target.value)">
             <option  value="">Select category</option>
@@ -90,12 +80,28 @@
             </select>
 
     </div>
-    
-
-
+    <br><button  class="btn btn-info" @click="restoreFilters"   > Reset filters </button>
 
 
 </div>
+<h3>Search </h3>
+<div class="col-md-12 mb-5 input-group">
+
+
+    <input value="" id="searchInput" class="form-control" placeholder="Search" @keyup="search($event.target.value)"/>
+
+    <div class="input-group-append">
+        <select :value="filters.sort" class="form-select" @change="sort($event.target.value)">
+        
+            <option value="">Sort by:</option>
+            <option value="asc">Price Ascending</option>
+            <option value="desc">Price Descending</option>
+        </select>
+
+    </div>
+
+</div>
+
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <div class="col"
         v-for="product in products" 
@@ -119,13 +125,16 @@
             <small class="text-muted">{{product.description}} </small>
             <br>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group" v-if="user != null">
-                   
+                <div class="btn-group" v-if="user == null">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                </div>
+                <div class="btn-group" v-if="user != null && user.is_customer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button v-if="addedToCart.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="addToCart(product.id)" >Remove from cart</button>
                     <button v-if="addedToCart.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="addToCart(product.id)" >Add to cart</button>
                 </div>
 
-                 <div class="btn-group" v-if="user == null">
+                 <div class="btn-group" v-if="user != null && !user.is_customer">
                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button v-if="selected.some(s => s === product.id)?true:false" type="button" class="btn btn-sm btn-outline-secondary selected" @click="select(product.id)" >Remove from selected</button>
                     <button v-if="selected.some(s => s === product.id)?false:true" type="button" class="btn btn-sm btn-outline-secondary" @click="select(product.id)" >Add to selected</button>
@@ -144,7 +153,8 @@
 </div>
 </template>
 <script lang="ts"   >
-import {SetupContext, ref} from "vue"
+import {useStore} from "vuex";
+import {SetupContext, ref, computed} from "vue"
 import axios from 'axios'
 import {Product} from "@/models/product"
 //import recombeeIntegration from "https://web-integration.recombee.com/v1/recombee.js"
@@ -154,26 +164,13 @@ export default {
 name: "Products",
 props: ['products', 'filters'],
 emits: ['set-filters'],
-
 setup(props: any, context: SetupContext) {
-/*
- window.recombeeIntegration=window.recombeeIntegration||function(){
-                (recombeeIntegration.q=recombeeIntegration.q||[]).push(arguments)
-                };recombeeIntegration.l=+new Date;
 
-	recombeeIntegration({
-		"type": "SetDefaults",
-		"userId": USER_ID,
-		"publicToken": "AQP5rakC7mj0dHYG1vBA1pj4wCaUeybFCDk3Spm5d5C18TGKPjDST18eJC0ytYRi",
-		"databaseId": "vilnius-tech-dev",
-		"rapiHostname": "client-rapi.recombee.com:443"
-	});
-	recombeeIntegration({
-		"type": "InitializeRecommendationWidget",
-		"rootElementId": "widget-root-17096d3d-2fc7-4513-9d12-b29ad28d0435",
-		"widgetId": "17096d3d-2fc7-4513-9d12-b29ad28d0435"
-	});
-*/
+      //GET USER OBJECT
+    const store = useStore();
+
+    const user = computed(
+    () => store.state.user);
 
     const link =  ref('')
     const selected = ref<number[]>([]); // selected products
@@ -192,6 +189,11 @@ setup(props: any, context: SetupContext) {
             category: '',
             manufacturer: '',
             brand: '',
+
+            car_make: '',
+            car_model: '',
+            car_model_year: '',
+
             page: 1
         });
         
@@ -243,6 +245,38 @@ setup(props: any, context: SetupContext) {
             page: 1
         });
     }
+
+        const car_make = (car_make: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            car_make,
+            restoreFilters: false,
+            page: 1
+        });
+    }
+
+
+        const car_model = (car_model: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            car_model,
+            restoreFilters: false,
+            page: 1
+        });
+    }
+
+
+        const car_model_year = (car_model_year: string) => {
+        context.emit('set-filters', {
+            ...props.filters,
+            car_model_year,
+            restoreFilters: false,
+            page: 1
+        });
+    }
+
+    
+
         const loadMore = () => {
         context.emit('set-filters', {
             ...props.filters,
@@ -314,11 +348,13 @@ setup(props: any, context: SetupContext) {
         //     products: selected.value
         // })
  try {
-        const {data} = await axios.post('cart', {
+        const {data} = await axios.post('links', {
             products: addedToCart.value
         })
 
-        link.value = `Link generated: ${process.env.VUE_APP_CHECKOUT_URL}/${data.code}`;
+        link.value = `${process.env.VUE_APP_CHECKOUT_URL}/${data.code}`;
+        
+        window.open(link.value)
 
         //await this.$router.push(cart)
         }
@@ -336,6 +372,7 @@ setup(props: any, context: SetupContext) {
     }
 
     return {
+        user,
         selected,
         addedToCart,
         select,
@@ -345,6 +382,11 @@ setup(props: any, context: SetupContext) {
         category,
         brand,
         manufacturer,
+
+        car_make,
+        car_model,
+        car_model_year,        
+
         loadMore,
         link,
         generateLink,
@@ -374,6 +416,9 @@ button.selected {
     height: 200px;
     object-fit: cover;
 }
+.breadcrumb {
+ font-size: 35px;
+ }
 </style>
   
 

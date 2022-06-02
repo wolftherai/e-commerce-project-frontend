@@ -1,4 +1,9 @@
 <template>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb " style="font-size: 35px">
+    <li  class="breadcrumb-item active " aria-current="page">Rankings</li>
+  </ol>
+</nav>
     <div class="table-responsive">
 
         <table class="table">
@@ -50,3 +55,8 @@ setup() {
 }
 
 </script>
+<style scoped>
+.breadcrumb {
+ font-size: 35px;
+ }
+</style>

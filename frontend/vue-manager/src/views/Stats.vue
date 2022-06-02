@@ -1,4 +1,10 @@
 <template>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb " style="font-size: 35px">
+    <li  class="breadcrumb-item active " aria-current="page">Stats</li>
+  </ol>
+</nav>
+<h3 class="text-center" style="background-color: #b9c6c8" >Total revenue: {{user.revenue}}</h3>
     <div class="table-responsive">
 
         <table class="table">
@@ -11,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
+                <tr :style="link.count > 0 ? 'background-color: #b1f0a4' : 'background-color: #e3a0a0'"
                 v-for="link in links"
                 :key="link.id"
                 >
@@ -27,7 +33,8 @@
     </div>
 </template>
 <script lang="ts">
-import {ref, onMounted} from "vue"
+import {useStore} from "vuex";
+import {ref, onMounted, computed} from "vue"
 import axios from 'axios'
 import {Link} from "@/models/link"
 
@@ -36,6 +43,11 @@ name: "Stats",
 
 setup() {
     const links = ref<Link[]>([]); // array value [] as Link
+    
+    const store = useStore();
+
+    const user = computed(
+    () => store.state.user);
 
     onMounted(
         async () => {
@@ -49,6 +61,7 @@ setup() {
  
 
     return {
+        user,
         links,
         checkoutUrl
     }

@@ -1,5 +1,10 @@
 
 <template>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb " style="font-size: 35px">
+    <li  class="breadcrumb-item active " aria-current="page">Profile</li>
+  </ol>
+</nav>
 <div style="margin-top:2%">
 
 

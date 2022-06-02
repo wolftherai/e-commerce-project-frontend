@@ -4,7 +4,7 @@
 <main>
 <Header v-if="!hideHeader" />   
 
-    <div class="album py-5 bg-light">
+    <div class="album bg-light">
         <div class="container">
 
         <router-view/>
@@ -59,4 +59,7 @@ export default {
 </script>
 
 <style scoped>
+.breadcrumb {
+ font-size: 35px;
+ }
 </style>

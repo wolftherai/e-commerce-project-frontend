@@ -1,4 +1,10 @@
 <template>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb " style="font-size: 35px">
+    <li  class="breadcrumb-item active " aria-current="page">Orders</li>
+  </ol>
+</nav>
+
     <div class="table-responsive">
 
         <table class="table">
@@ -6,19 +12,23 @@
                 <tr>
                 <th >#</th>
                 <th >Order code</th>
-                <th >Status</th>
+                <th >Date</th>
                 <th >Total</th>
+                <th >Status</th>
+                
                 </tr>
             </thead>
             <tbody>
-                <tr
+                <tr :style="order.complete? 'background-color: #b1f0a4' : 'background-color: #e3a0a0'"
                 v-for="order in orders"
                 :key="order.id"
                 >
                     <td>{{ order.id }}</td>
                     <td>{{ order.code }}</td>
-                    <td>{{ order.complete? 'COMPLETED':'NOT COMPLETED' }}</td>
+                    <td>{{ order.updated_at.substring(0,10) }}</td>
+                   
                     <td>{{ order.total }} € </td>
+                     <td>{{ order.complete? 'COMPLETED':'NOT COMPLETED' }}</td>
                 </tr>
             </tbody>
             

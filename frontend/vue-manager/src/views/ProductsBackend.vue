@@ -23,6 +23,12 @@ setup() {
         category: '',
         manufacturer: '',
         brand: '',
+
+        car_make: '',
+        car_model: '',
+        car_model_year: '',
+
+
         page: 1
     });
 
@@ -34,40 +40,61 @@ const load = async (f: Filter) => {
         filters.category = f.category;
         filters.manufacturer = f.manufacturer;
         filters.brand = f.brand;
+
+        filters.car_make = f.car_make;
+        filters.car_model = f.car_model;
+        filters.car_model_year = f.car_model_year;
+
         filters.page = f.page;
         filters.restoreFilters = f.restoreFilters;
         const arr = [];
+        
           if(!filters.restoreFilters)
         {
-        if(filters.s)
-        {
-            arr.push(`s=${filters.s}`);
-        }
-        if(filters.sort)
-        {
-            arr.push(`sort=${filters.sort}`);
-        }
-        if(filters.category)
-        {
-            arr.push(`category=${filters.category}`);
-        }
-        if(filters.manufacturer)
-        {
-            arr.push(`manufacturer=${filters.manufacturer}`);
-        }
-        if(filters.brand)
-        {
-            arr.push(`brand=${filters.brand}`);
-        }
+            if(filters.s)
+            {
+                arr.push(`s=${filters.s}`);
+            }
+            if(filters.sort)
+            {
+                arr.push(`sort=${filters.sort}`);
+            }
+            if(filters.category)
+            {
+                arr.push(`category=${filters.category}`);
+            }
+            if(filters.manufacturer)
+            {
+                arr.push(`manufacturer=${filters.manufacturer}`);
+            }
+            if(filters.brand)
+            {
+                arr.push(`brand=${filters.brand}`);
+            }
 
-        if(filters.page)
-        {
-            arr.push(`page=${filters.page}`);
-        }
+            // car data filters
+            if(filters.car_make)
+            {
+                arr.push(`car_make=${filters.car_make}`);
+            }
+            if(filters.car_model)
+            {
+                arr.push(`car_model=${filters.car_model}`);
+            }
+            if(filters.car_model_year)
+            {
+                arr.push(`car_model_year=${filters.car_model_year}`);
+            }
 
-      
-            //filters.brand
-         
+
+            if(filters.page)
+            {
+                arr.push(`page=${filters.page}`);
+            }
+
+        
+                //filters.brand
+            
         }
         else
         {

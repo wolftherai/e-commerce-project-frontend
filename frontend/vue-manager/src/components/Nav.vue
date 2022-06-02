@@ -11,7 +11,7 @@
     
       </ul>
 
-      <div  class="col-md-5 " v-if="user != null && !user.is_customer">
+      <div  class="col-md-6 " v-if="user != null && !user.is_customer">
  
       <router-link to="/orders" class="btn me-2" >Orders</router-link>
       <router-link to="/stats" class="btn me-2" >Stats</router-link>
@@ -19,7 +19,7 @@
         <a href="#" type="button" class="btn btn-outline-primary me-2" @click="logout">Logout</a>
         <router-link to="/profile" class="btn btn-primary  me-2">{{user.first_name}} {{user.last_name}}</router-link>
       </div>
-      <div  class="col-md-4 " v-if="user != null && user.is_customer">
+      <div  class="col-md-3 " v-if="user != null && user.is_customer">
  
       <router-link to="/orders" class="btn me-2" >Orders</router-link>
 
