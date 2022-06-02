@@ -1,21 +1,26 @@
 <template>
-<div>
-  <v-expansion-panels>
+<div style="max-width: 1050px; padding: 10px; ">
+  <v-expansion-panels >
     <v-expansion-panel
       v-for="order in orders"
       :key="order.id"
     >
-      <v-expansion-panel-header>
-     #{{ order.id}} <br><br> {{order.customer_name}} <br> <br> Completed: {{order.complete}} <br> <br>Total: {{order.total}} €  
+      <v-expansion-panel-header style="background-color: rgb(217 233 217)">
+     #{{ order.id}} <br><br> 
+      {{order.customer_name}}  |   {{order.email}}  |  {{ order.updated_at.substring(0,10) }} <br><br> 
+    
+      Completed: {{order.complete}}<br><br>
+      Total: {{order.total}}.00 €  
       </v-expansion-panel-header>
       <v-expansion-panel-content>
        
-            <v-simple-table>
+            <v-simple-table >
             <template v-slot:default>
             <thead>
                 <tr>
                 <th class="text-left">#</th>
                 <th class="text-left">Product title</th>
+
                 <th class="text-left">Price</th>
                 <th class="text-left">Quantity</th>
                 </tr>

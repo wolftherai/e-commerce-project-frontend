@@ -22,10 +22,12 @@
             <router-link to="/orders" class="nav-link"  active-class="active">
                 Orders
             </router-link>
-            <router-link to="/users" class="nav-link"  active-class="active">
+            <router-link to="/managers" class="nav-link"  active-class="active">
                 Managers
             </router-link>
- 
+             <router-link to="/customers" class="nav-link"  active-class="active">
+                Customers
+            </router-link>
             </li>
         </ul>
     </div>

@@ -1,5 +1,5 @@
 <template>
- <div>
+ <div  style="!min-width: 1050px; padding: 10px; ">
      <div class="pt-3 pb-2 mb-3 border-bottom">
         <v-btn href="/manufacturers/create" variant="contained" color="primary">Add</v-btn>
     </div>

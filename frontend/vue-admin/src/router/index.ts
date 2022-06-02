@@ -3,7 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Layout from '@/views/Layout.vue'
 import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
-import Users from '@/views/Users.vue'
+import Managers from '@/views/Managers.vue'
+import Customers from '@/views/Customers.vue'
 import Links from '@/views/Links.vue'
 import Orders from '@/views/Orders.vue'
 import Products from '@/views/products/Products.vue'
@@ -30,8 +31,10 @@ const routes: Array<RouteConfig> = [
     component: Layout,
     children: [
         {path: '', redirect: '/products'},
-        {path: '/users', component: Users},
-        {path: '/users/:id/links', component: Links},
+        {path: '/managers', component: Managers},
+        {path: '/managers/:id/links', component: Links},
+        {path: '/customers', component: Customers},
+        {path: '/customers/:id/links', component: Links},
 
         {path: '/products', component: Products},
         {path: '/products/create', component: ProductForm},
