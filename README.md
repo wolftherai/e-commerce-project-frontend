@@ -25,6 +25,7 @@ The payment processing part uses the "stripe" interface, which allows you to con
 # Admin product form:
 
 ![image](https://user-images.githubusercontent.com/46331085/214250931-e0123ba9-d9b3-4a31-8934-0a8705354748.png)
+----------------------
 (Clicking the product edit or creation button opens the product form, where product attributes can be filled in or changed.)
 ---------------------------------------------------------------------------------------
 Administrator profile information change form:
